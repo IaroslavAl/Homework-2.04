@@ -139,19 +139,50 @@ extension SettingsViewController: UITextFieldDelegate {
         
         let updatedText = newValue.replacingOccurrences(of: ",", with: ".")
         
-        switch textField {
-        case redSliderTF:
-            redSlider.value = Float(updatedText) ?? redSlider.value
-            redSliderLabel.text = updatedText
-        case greenSliderTF:
-            greenSlider.value = Float(updatedText) ?? greenSlider.value
-            greenSliderLabel.text = updatedText
-        default:
-            blueSlider.value = Float(updatedText) ?? blueSlider.value
-            blueSliderLabel.text = updatedText
+        if let value = Float(updatedText) {
+            switch textField {
+            case redSliderTF:
+                redSlider.value = value
+                redSliderLabel.text = string(from: redSlider)
+                textField.text = string(from: redSlider)
+            case greenSliderTF:
+                greenSlider.value = value
+                greenSliderLabel.text = string(from: greenSlider)
+                textField.text = string(from: greenSlider)
+            default:
+                blueSlider.value = value
+                blueSliderLabel.text = string(from: blueSlider)
+                textField.text = string(from: blueSlider)
+            }
+            
+            setColor()
+            
+        } else {
+            let alertController = UIAlertController(
+                title: "Ошибка",
+                message: "Некорректное значение",
+                preferredStyle: .alert
+            )
+            
+            alertController.addAction(UIAlertAction(
+                title: "OK",
+                style: .default,
+                handler: { _ in
+                    switch textField {
+                    case self.redSliderTF:
+                        textField.text = self.string(from: self.redSlider)
+                    case self.greenSliderTF:
+                        textField.text = self.string(from: self.greenSlider)
+                    default:
+                        textField.text = self.string(from: self.blueSlider)
+                    }
+                    return
+                }
+            )
+            )
+            
+            present(alertController, animated: true, completion: nil)
         }
-        
-        setColor()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
