@@ -134,13 +134,10 @@ final class SettingsViewController: UIViewController {
 
 // MARK: - UITextFieldDelegate
 extension SettingsViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let newValue = textField.text else { return }
         
-        guard let text = textField.text,
-              let textRange = Range(range, in: text) else { return false }
-        
-        let updatedText = text.replacingCharacters(in: textRange, with: string)
-            .replacingOccurrences(of: ",", with: ".")
+        let updatedText = newValue.replacingOccurrences(of: ",", with: ".")
         
         switch textField {
         case redSliderTF:
@@ -155,8 +152,6 @@ extension SettingsViewController: UITextFieldDelegate {
         }
         
         setColor()
-        
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
