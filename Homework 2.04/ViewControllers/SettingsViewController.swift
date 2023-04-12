@@ -25,7 +25,7 @@ final class SettingsViewController: UIViewController {
     @IBOutlet var blueSliderTF: UITextField!
     
     // MARK: - Properties
-    var color: Color!
+    var color: UIColor!
     unowned var delegate: SettingsViewControllerDelegate!
     
     // MARK: - View Life Circle
@@ -37,12 +37,8 @@ final class SettingsViewController: UIViewController {
         greenSliderTF.delegate = self
         blueSliderTF.delegate = self
         
-        setColor()
-        setSliders()
-        setLabels()
-        setTextFields()
-        
         addDoneButton()
+        updateUI()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -54,25 +50,21 @@ final class SettingsViewController: UIViewController {
     @IBAction func sliderChanged(_ sender: UISlider) {
         switch sender {
         case redSlider:
-            color.redValue = redSlider.value
+            redSliderLabel.text = string(from: redSlider)
+            redSliderTF.text = string(from: redSlider)
         case greenSlider:
-            color.greenValue = greenSlider.value
+            greenSliderLabel.text = string(from: greenSlider)
+            greenSliderTF.text = string(from: greenSlider)
         default:
-            color.blueValue = blueSlider.value
+            blueSliderLabel.text = string(from: blueSlider)
+            blueSliderTF.text = string(from: blueSlider)
         }
         
         setColor()
-        setLabels()
-        setTextFields()
     }
     
     @IBAction func donePressed() {
-        delegate.setValue(for: Color(
-            redValue: redSlider.value,
-            greenValue: greenSlider.value,
-            blueValue: blueSlider.value
-        )
-        )
+        delegate.setValue(for: colorView.backgroundColor ?? .white)
         dismiss(animated: true)
     }
     
@@ -82,35 +74,45 @@ final class SettingsViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func string(from value: Float) -> String {
-        String(format: "%.2f", value)
+    private func string(from slider: UISlider) -> String {
+        String(format: "%.2f", slider.value)
     }
     
     private func setColor() {
         colorView.backgroundColor = UIColor(
-            red: CGFloat(color.redValue),
-            green: CGFloat(color.greenValue),
-            blue: CGFloat(color.blueValue),
+            red: CGFloat(redSlider.value),
+            green: CGFloat(greenSlider.value),
+            blue: CGFloat(blueSlider.value),
             alpha: 1
         )
     }
     
-    private func setSliders() {
-        redSlider.value = color.redValue
-        greenSlider.value = color.greenValue
-        blueSlider.value = color.blueValue
+    private func getRGBComponents() -> (red: CGFloat, green: CGFloat, blue: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        
+        color.getRed(&red, green: &green, blue: &blue, alpha: nil)
+        
+        return (red, green, blue)
     }
     
-    private func setLabels() {
-        redSliderLabel.text = string(from: color.redValue)
-        greenSliderLabel.text = string(from: color.greenValue)
-        blueSliderLabel.text = string(from: color.blueValue)
-    }
-    
-    private func setTextFields() {
-        redSliderTF.text = string(from: color.redValue)
-        greenSliderTF.text = string(from: color.greenValue)
-        blueSliderTF.text = string(from: color.blueValue)
+    private func updateUI() {
+        let components = getRGBComponents()
+        
+        redSlider.value = Float(components.red)
+        greenSlider.value = Float(components.green)
+        blueSlider.value = Float(components.blue)
+        
+        redSliderLabel.text = string(from: redSlider)
+        greenSliderLabel.text = string(from: greenSlider)
+        blueSliderLabel.text = string(from: blueSlider)
+        
+        redSliderTF.text = string(from: redSlider)
+        greenSliderTF.text = string(from: greenSlider)
+        blueSliderTF.text = string(from: blueSlider)
+        
+        setColor()
     }
     
     private func addDoneButton() {
@@ -142,16 +144,17 @@ extension SettingsViewController: UITextFieldDelegate {
         
         switch textField {
         case redSliderTF:
-            color.redValue = Float(updatedText) ?? redSlider.value
+            redSlider.value = Float(updatedText) ?? redSlider.value
+            redSliderLabel.text = updatedText
         case greenSliderTF:
-            color.greenValue = Float(updatedText) ?? greenSlider.value
+            greenSlider.value = Float(updatedText) ?? greenSlider.value
+            greenSliderLabel.text = updatedText
         default:
-            color.blueValue = Float(updatedText) ?? blueSlider.value
+            blueSlider.value = Float(updatedText) ?? blueSlider.value
+            blueSliderLabel.text = updatedText
         }
         
         setColor()
-        setSliders()
-        setLabels()
         
         return true
     }

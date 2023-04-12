@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C41E845129E592F90084A6CA /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E845029E592F90084A6CA /* MainViewController.swift */; };
-		C41E845729E596360084A6CA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E845629E596360084A6CA /* Color.swift */; };
 		C41E845929E5B4050084A6CA /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41E845829E5B4050084A6CA /* SettingsViewController.swift */; };
 		C4F4DBA629CD649E005002FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4DBA529CD649E005002FA /* AppDelegate.swift */; };
 		C4F4DBA829CD649E005002FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F4DBA729CD649E005002FA /* SceneDelegate.swift */; };
@@ -19,7 +18,6 @@
 
 /* Begin PBXFileReference section */
 		C41E845029E592F90084A6CA /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C41E845629E596360084A6CA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C41E845829E5B4050084A6CA /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C4F4DBA229CD649E005002FA /* Homework 2.04.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Homework 2.04.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F4DBA529CD649E005002FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,14 +67,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		C41E845529E595DB0084A6CA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				C41E845629E596360084A6CA /* Color.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		C4F4DB9929CD649E005002FA = {
 			isa = PBXGroup;
 			children = (
@@ -97,7 +87,6 @@
 		C4F4DBA429CD649E005002FA /* Homework 2.04 */ = {
 			isa = PBXGroup;
 			children = (
-				C41E845529E595DB0084A6CA /* Models */,
 				C41E845229E593040084A6CA /* Storyboards */,
 				C41E845329E593350084A6CA /* ViewControllers */,
 				C41E845429E593570084A6CA /* App */,
@@ -178,7 +167,6 @@
 			files = (
 				C4F4DBA629CD649E005002FA /* AppDelegate.swift in Sources */,
 				C4F4DBA829CD649E005002FA /* SceneDelegate.swift in Sources */,
-				C41E845729E596360084A6CA /* Color.swift in Sources */,
 				C41E845929E5B4050084A6CA /* SettingsViewController.swift in Sources */,
 				C41E845129E592F90084A6CA /* MainViewController.swift in Sources */,
 			);
