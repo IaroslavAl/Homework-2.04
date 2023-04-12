@@ -165,7 +165,6 @@ extension SettingsViewController: UITextFieldDelegate {
             }
             
             setColor()
-            
         } else {
             let alertController = UIAlertController(
                 title: "Ошибка",
@@ -173,7 +172,7 @@ extension SettingsViewController: UITextFieldDelegate {
                 preferredStyle: .alert
             )
             
-            alertController.addAction(UIAlertAction(
+            let okAction = UIAlertAction(
                 title: "OK",
                 style: .default,
                 handler: { _ in
@@ -188,8 +187,8 @@ extension SettingsViewController: UITextFieldDelegate {
                     return
                 }
             )
-            )
             
+            alertController.addAction(okAction)
             present(alertController, animated: true, completion: nil)
         }
     }
