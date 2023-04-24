@@ -8,16 +8,13 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate: AnyObject {
-    func setValue(for color: UIColor)
+    func setColor(_ color: UIColor)
 }
 
 final class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let settingsVC = segue.destination as? SettingsViewController else {
-            return
-        }
-        
+        guard let settingsVC = segue.destination as? SettingsViewController else { return }
         settingsVC.color = view.backgroundColor
         settingsVC.delegate = self
     }
@@ -25,7 +22,7 @@ final class MainViewController: UIViewController {
 
 // MARK: - SettingsViewControllerDelegate
 extension MainViewController: SettingsViewControllerDelegate {
-    func setValue(for color: UIColor) {
+    func setColor(_ color: UIColor) {
         self.view.backgroundColor = color
     }
 }
